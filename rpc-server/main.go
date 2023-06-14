@@ -36,20 +36,3 @@ func main() {
 
 
 
-func saveMessage(db *sql.DB, senderName, recipientName, message string) error {
-	// Prepare the SQL statement
-	stmt, err := db.Prepare("INSERT INTO user (sender, receiver, message, timestamp) VALUES (?, ?, ?, CURRENT_TIMESTAMP)")
-	if err != nil {
-		return err
-	}
-	defer stmt.Close()
-
-	// Execute the prepared statement with the values
-	_, err = stmt.Exec(senderName, recipientName, message)
-	if err != nil {
-		return err
-	}
-
-	fmt.Println("Message saved successfully!")
-	return nil
-}
